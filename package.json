@@ -11,6 +11,7 @@
     "lint": "tsc --noEmit"
   },
   "dependencies": {
+    "@edusites/icons": "^1.3.0",
     "@google/genai": "^2.4.0",
     "@gsap/react": "^2.1.2",
     "@tailwindcss/vite": "^4.1.14",

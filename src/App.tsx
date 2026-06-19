@@ -6,30 +6,41 @@
 import React, { useEffect } from 'react';
 import { Header } from './components/layout/Header';
 import { Hero } from './components/sections/Hero';
+import { Process } from './components/sections/Process';
 import { Mail } from 'lucide-react';
 import Lenis from 'lenis';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger);
 
 export default function App() {
   useEffect(() => {
+    // Premium fluid scroll configuration
     const lenis = new Lenis({
-      duration: 1.2,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // smooth exponential
-      orientation: 'vertical',
-      gestureOrientation: 'vertical',
+      lerp: 0.05, // Creates a very fluid, "buttery" momentum
       smoothWheel: true,
       wheelMultiplier: 1,
       touchMultiplier: 2,
     });
 
-    function raf(time: number) {
-      lenis.raf(time);
-      requestAnimationFrame(raf);
-    }
+    // Synchronize Lenis scrolling with GSAP ScrollTrigger
+    lenis.on('scroll', ScrollTrigger.update);
 
-    requestAnimationFrame(raf);
+    // Add Lenis's requestAnimationFrame (raf) to GSAP's ticker
+    // This ensures that scroll and animations run on exactly the same frame
+    gsap.ticker.add((time) => {
+      lenis.raf(time * 1000);
+    });
+
+    // Prevent GSAP from "lag smoothing" which can cause stutter in scroll
+    gsap.ticker.lagSmoothing(0);
 
     return () => {
       lenis.destroy();
+      gsap.ticker.remove((time) => {
+        lenis.raf(time * 1000);
+      });
     };
   }, []);
 
@@ -40,6 +51,9 @@ export default function App() {
 
       {/* Hero Experience (exactly 100vh) */}
       <Hero />
+
+      {/* From Idea To Interface Process Section */}
+      <Process />
 
       {/* Elegant Minimalist Contact Anchor & Scroll Buffer 
           Allows testing of scrolling 'cloud' navbar with absolute architectural cleanliness */}
@@ -79,7 +93,7 @@ export default function App() {
         {/* Humble and minimalist signature label */}
         <div className="max-w-7xl mx-auto w-full border-t border-neutral-800/60 mt-16 pt-8 flex justify-between items-center text-xs font-mono text-neutral-500">
           <span>&copy; {new Date().getFullYear()} Fellipe Eduardo</span>
-          <span>Crafted with Intention</span>
+          <span>Criado com Intenção</span>
         </div>
       </section>
     </div>

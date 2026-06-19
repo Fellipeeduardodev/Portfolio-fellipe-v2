@@ -199,7 +199,7 @@ export const Hero: React.FC = () => {
           <div className="flex items-center gap-2 mb-1">
             <span className="w-1.5 h-1.5 rounded-full bg-[#171717] animate-pulse" />
             <span className="text-[10px] md:text-[11px] font-mono font-semibold uppercase tracking-[0.2em] text-neutral-800">
-              FROM IDEA TO INTERFACE
+              DA IDEIA À INTERFACE
             </span>
           </div>
 
@@ -232,7 +232,7 @@ export const Hero: React.FC = () => {
         {/* RIGHT CONTENT - EDITORIAL SOCIAL SIDEBAR */}
         <div className="hero-socials md:col-span-3 flex flex-col items-center md:items-end gap-5 md:ml-auto md:border-l md:border-neutral-200/60 md:pl-8 md:pb-2 w-full mt-8 md:mt-0 pt-6 md:pt-0">
           <div className="hidden md:block text-[10px] font-mono font-medium tracking-[0.2em] text-neutral-400 uppercase md:text-right writing-vertical-lr md:transform-none">
-            Digital Identity
+            Identidade Digital
           </div>
           
           <div className="hero-socials-reveal grid grid-cols-2 md:flex md:flex-col justify-items-center md:justify-end items-center md:items-end gap-x-4 gap-y-5 md:gap-4 w-full max-w-[300px] md:max-w-none mx-auto md:mx-0">

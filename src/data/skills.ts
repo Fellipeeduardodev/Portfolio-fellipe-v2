@@ -8,38 +8,28 @@ export interface ProcessStage {
 
 export const processStages: ProcessStage[] = [
   {
-    label: 'Idea',
+    label: 'Contato',
     desktopTop: '5%',
     desktopLeft: '-40%',
   },
   {
-    label: 'Research',
+    label: 'Ideia',
     desktopTop: '-5%',
     desktopLeft: '80%',
   },
   {
-    label: 'Wireframe',
+    label: 'Protótipo',
     desktopTop: '35%',
     desktopLeft: '-60%',
   },
   {
-    label: 'Prototype',
+    label: 'Desenvolvimento',
     desktopTop: '30%',
     desktopLeft: '110%',
   },
   {
-    label: 'Interface',
-    desktopTop: '65%',
-    desktopLeft: '-55%',
-  },
-  {
-    label: 'Code',
-    desktopTop: '55%',
-    desktopLeft: '105%',
-  },
-  {
-    label: 'Launch',
-    desktopTop: '90%',
+    label: 'Lançamento',
+    desktopTop: '70%',
     desktopLeft: '-20%',
     mobileHidden: true,
   },
