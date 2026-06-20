@@ -14,7 +14,7 @@ export const Footer: React.FC = () => {
       const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
       if (prefersReducedMotion) {
-        gsap.set(".footer-headline, .footer-cta, .footer-info, .footer-socials, .footer-bg-text", {
+        gsap.set(".footer-headline, .footer-cta, .footer-info, .footer-socials", {
           opacity: 1,
           y: 0,
         });
@@ -51,27 +51,9 @@ export const Footer: React.FC = () => {
           { y: 40, opacity: 0 },
           { y: 0, opacity: 1, duration: 1.2, ease: "power3.out" },
           "-=1"
-        )
-        .fromTo(
-          ".footer-bg-text",
-          { opacity: 0, y: 40 },
-          { opacity: 0.06, y: 0, duration: 2, ease: "power2.out" },
-          "-=1.5"
         );
 
-      // Subtle mouse move parallax on background text with quickTo
-      const xTo = gsap.quickTo(".footer-bg-text", "x", { duration: 2, ease: "power3.out" });
-      const yTo = gsap.quickTo(".footer-bg-text", "y", { duration: 2, ease: "power3.out" });
 
-      const handleMouseMove = (e: MouseEvent) => {
-        if (window.innerWidth <= 768) return;
-        const x = (e.clientX / window.innerWidth - 0.5) * 20;
-        const y = (e.clientY / window.innerHeight - 0.5) * 15;
-        xTo(x);
-        yTo(y);
-      };
-
-      window.addEventListener("mousemove", handleMouseMove);
 
       // Magnetic CTA hover
       const ctaEl = ctaRef.current;
@@ -100,7 +82,7 @@ export const Footer: React.FC = () => {
       }
 
       return () => {
-        window.removeEventListener("mousemove", handleMouseMove);
+
         if (ctaEl) {
           if (handleCTAMouseMove) ctaEl.removeEventListener("mousemove", handleCTAMouseMove);
           if (handleCTAMouseLeave) ctaEl.removeEventListener("mouseleave", handleCTAMouseLeave);
@@ -218,15 +200,7 @@ export const Footer: React.FC = () => {
 
       </div>
 
-      {/* Giant low-opacity background text */}
-      <div 
-        className="absolute bottom-28 md:bottom-20 left-1/2 -translate-x-1/2 w-full text-center pointer-events-none select-none overflow-hidden z-0"
-        aria-hidden="true"
-      >
-        <span className="footer-bg-text block font-display font-black text-[clamp(4rem,15vw,22rem)] leading-none text-white opacity-[0.06] tracking-tighter uppercase whitespace-nowrap">
-          FELLIPE EDUARDO
-        </span>
-      </div>
+
 
       {/* Footer Bottom Block */}
       <div className="w-full max-w-[1400px] mx-auto border-t border-neutral-800/40 mt-16 pt-8 flex flex-col sm:flex-row justify-between items-center gap-4 relative z-10 text-[10px] md:text-xs font-mono text-neutral-500">
