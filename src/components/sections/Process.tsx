@@ -60,7 +60,9 @@ export const Process: React.FC = () => {
   const contentRefs = useRef<(HTMLDivElement | null)[]>([]);
   const mobileContentRefs = useRef<(HTMLDivElement | null)[]>([]);
   const [activeStage, setActiveStage] = useState(0);
-  const [isMobile, setIsMobile] = useState(false);
+  const [isMobile, setIsMobile] = useState(() => 
+    typeof window !== "undefined" ? window.innerWidth < 768 : false
+  );
   const isScrolling = useRef(false);
   const scrollTimeout = useRef<number | null>(null);
 
@@ -331,7 +333,11 @@ export const Process: React.FC = () => {
                     id={`stage-panel-${stage.id}`}
                     role="tabpanel"
                     aria-labelledby={`stage-tab-${stage.id}`}
-                    className={`md:hidden overflow-hidden ${index === 0 ? '' : 'h-0 opacity-0'}`}
+                    className="md:hidden overflow-hidden"
+                    style={{
+                      height: index === 0 ? "auto" : 0,
+                      opacity: index === 0 ? 1 : 0,
+                    }}
                   >
                     <div className="flex flex-col items-start gap-8 pt-8 pb-4">
                       {/* Badge */}
