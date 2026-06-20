@@ -27,69 +27,12 @@ export const Header: React.FC = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // GSAP for Initial Reveal
-  useGSAP(() => {
-    gsap.fromTo(
-      headerRef.current,
-      { y: -100, opacity: 0 },
-      { y: 0, opacity: 1, duration: 1.2, ease: "power4.out", delay: 0.1 }
-    );
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setMounted(true), 100);
+    return () => clearTimeout(timer);
   }, []);
-
-  // GSAP for Scroll States (Wide vs Floating Cloud) with Responsive matchMedia
-  useGSAP(() => {
-    if (!headerRef.current) return;
-
-    let mm = gsap.matchMedia();
-
-    mm.add(
-      {
-        isDesktop: "(min-width: 768px)",
-        isMobile: "(max-width: 767px)",
-      },
-      (context) => {
-        let { isDesktop } = context.conditions as { isDesktop: boolean; isMobile: boolean };
-
-        if (isScrolled || mobileMenuOpen) {
-          // State 2: Floating cloud
-          gsap.to(headerRef.current, {
-            width: isDesktop ? "100%" : "92%",
-            maxWidth: "800px",
-            paddingTop: isDesktop ? "14px" : "12px",
-            paddingBottom: isDesktop ? "14px" : "12px",
-            paddingLeft: isDesktop ? "28px" : "20px",
-            paddingRight: isDesktop ? "28px" : "20px",
-            y: isDesktop ? 24 : 16,
-            backgroundColor: "rgba(255, 255, 255, 0.95)",
-            backdropFilter: "blur(16px)",
-            boxShadow: "0 20px 40px rgba(0, 0, 0, 0.08)",
-            border: "1px solid rgba(230, 230, 230, 0.9)",
-            duration: 0.8,
-            ease: "power3.out",
-          });
-        } else {
-          // State 1: Top wide
-          gsap.to(headerRef.current, {
-            width: isDesktop ? "96%" : "92%",
-            maxWidth: "1800px",
-            paddingTop: isDesktop ? "20px" : "12px",
-            paddingBottom: isDesktop ? "20px" : "12px",
-            paddingLeft: isDesktop ? "40px" : "20px",
-            paddingRight: isDesktop ? "40px" : "20px",
-            y: isDesktop ? 24 : 16,
-            backgroundColor: isDesktop ? "rgba(255, 255, 255, 0)" : "rgba(255, 255, 255, 0.95)",
-            backdropFilter: isDesktop ? "blur(0px)" : "blur(16px)",
-            boxShadow: isDesktop ? "0 0px 0px rgba(0, 0, 0, 0)" : "0 10px 30px rgba(0, 0, 0, 0.04)",
-            border: isDesktop ? "1px solid rgba(234, 234, 234, 0)" : "1px solid rgba(230, 230, 230, 0.9)",
-            duration: 0.8,
-            ease: "power3.out",
-          });
-        }
-      }
-    );
-
-    return () => mm.revert();
-  }, [isScrolled, mobileMenuOpen]);
 
   // GSAP for Mobile Menu Overlay
   useGSAP(() => {
@@ -119,22 +62,28 @@ export const Header: React.FC = () => {
     }
   }, [mobileMenuOpen]);
 
+  const handleScrollTo = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    e.preventDefault();
+    setMobileMenuOpen(false);
+    const targetId = href.replace("#", "");
+    const element = document.getElementById(targetId);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   return (
     <>
       <header className="fixed top-0 left-0 right-0 z-50 flex justify-center pointer-events-none px-0">
         <div
           ref={headerRef}
-          className="flex items-center justify-between pointer-events-auto rounded-full opacity-0 -translate-y-24 will-change-transform"
-          style={{
-            // Initial inline styles prevent flash before GSAP kicks in
-            width: "92%", // mobile-first default
-            maxWidth: "1800px",
-            padding: "12px 20px",
-            backgroundColor: "rgba(255, 255, 255, 0.95)",
-            border: "1px solid rgba(230, 230, 230, 0.9)",
-            boxShadow: "0 10px 30px rgba(0, 0, 0, 0.04)",
-            transform: "translateY(16px)",
-          }}
+          className={`flex items-center justify-between pointer-events-auto rounded-full will-change-transform transition-all duration-[800ms] ease-[cubic-bezier(0.16,1,0.3,1)] ${
+            mounted ? "opacity-100" : "opacity-0 -translate-y-12"
+          } ${
+            isScrolled || mobileMenuOpen
+              ? "w-[92%] md:w-full max-w-[800px] py-3 px-5 md:py-3.5 md:px-7 translate-y-4 md:translate-y-6 bg-white/95 backdrop-blur-md shadow-[0_20px_40px_rgba(0,0,0,0.08)] border border-neutral-200/90"
+              : "w-[92%] md:w-[96%] max-w-[1800px] py-3 px-5 md:py-5 md:px-10 translate-y-4 md:translate-y-6 bg-white/95 backdrop-blur-md md:bg-transparent md:backdrop-blur-none md:shadow-none md:border-transparent border border-neutral-200/90 shadow-[0_10px_30px_rgba(0,0,0,0.04)]"
+          }`}
         >
           {/* Brand/logo name */}
           <a
@@ -145,21 +94,22 @@ export const Header: React.FC = () => {
             <span className="font-display font-medium text-[15px] md:text-base tracking-tight text-neutral-900">
               Fellipe Eduardo
             </span>
-            <span className="w-1 h-1 rounded-full bg-neutral-900 self-end mb-1.5 opacity-80" />
+            <span className="w-1 h-1 rounded-full bg-neutral-900 self-end mb-1.5 opacity-80" aria-hidden="true" />
           </a>
 
           {/* Center Navigation Links (hidden on mobile) */}
-          <nav className="hidden md:flex items-center gap-10 absolute left-1/2 -translate-x-1/2">
+          <nav aria-label="Navegação principal" className="hidden md:flex items-center gap-10 absolute left-1/2 -translate-x-1/2">
             {navigationItems.map((item, index) => (
               <a
                 id={`nav-item-${index}`}
                 key={item.label}
                 href={item.href}
-                className="relative text-[11px] font-mono font-semibold tracking-[0.2em] text-neutral-400 hover:text-neutral-900 uppercase transition-colors duration-500 py-2 group"
+                onClick={(e) => handleScrollTo(e, item.href)}
+                className="relative text-[11px] font-mono font-semibold tracking-[0.2em] text-neutral-400 hover:text-neutral-950 uppercase transition-colors duration-500 py-2 group"
               >
                 {item.label}
                 {/* Micro-interaction underline */}
-                <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-[1.5px] bg-neutral-900 transition-all duration-500 ease-out group-hover:w-full" />
+                <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-[1.5px] bg-neutral-950 transition-all duration-500 ease-out group-hover:w-full" />
               </a>
             ))}
           </nav>
@@ -169,13 +119,7 @@ export const Header: React.FC = () => {
             <a
               id="cta-contato"
               href="#contato"
-              onClick={(e) => {
-                const el = document.getElementById("contato");
-                if (el) {
-                  e.preventDefault();
-                  el.scrollIntoView({ behavior: "smooth" });
-                }
-              }}
+              onClick={(e) => handleScrollTo(e, "#contato")}
               className="hidden sm:flex items-center gap-2 px-6 py-3 bg-[#111111] hover:bg-[#000000] text-white rounded-full transition-colors duration-500 group"
             >
               <span className="font-mono text-[10px] font-medium tracking-[0.15em] uppercase mt-0.5">Contato</span>
@@ -191,7 +135,9 @@ export const Header: React.FC = () => {
               id="mobile-menu-toggle"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               className="p-2 -mr-2 text-neutral-800 hover:text-neutral-950 rounded-full transition-colors md:hidden focus:outline-none"
-              aria-label="Toggle Menu"
+              aria-label={mobileMenuOpen ? "Fechar menu" : "Abrir menu"}
+              aria-expanded={mobileMenuOpen}
+              aria-controls="mobile-menu-overlay"
             >
               {mobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
             </button>
@@ -203,15 +149,18 @@ export const Header: React.FC = () => {
       <div
         ref={mobileOverlayRef}
         id="mobile-menu-overlay"
+        role={mobileMenuOpen ? "dialog" : undefined}
+        aria-modal={mobileMenuOpen ? "true" : undefined}
+        aria-label={mobileMenuOpen ? "Menu de navegação" : undefined}
         className="fixed inset-0 z-40 bg-white/98 backdrop-blur-xl flex flex-col justify-center items-center p-8 md:hidden pointer-events-none opacity-0 -translate-y-5"
       >
-        <div ref={mobileMenuLinksRef} className="flex flex-col items-center gap-8 w-full max-w-sm">
+        <nav aria-label="Menu mobile" ref={mobileMenuLinksRef} className="flex flex-col items-center gap-8 w-full max-w-sm">
           {navigationItems.map((item, index) => (
             <a
               id={`mobile-nav-item-${index}`}
               key={item.label}
               href={item.href}
-              onClick={() => setMobileMenuOpen(false)}
+              onClick={(e) => handleScrollTo(e, item.href)}
               className="text-3xl font-display font-medium tracking-tight text-neutral-800 hover:text-neutral-950 transition-colors opacity-0 translate-y-5"
             >
               {item.label}
@@ -220,13 +169,13 @@ export const Header: React.FC = () => {
           <a
             id="mobile-cta-contato"
             href="#contato"
-            onClick={() => setMobileMenuOpen(false)}
+            onClick={(e) => handleScrollTo(e, "#contato")}
             className="flex items-center justify-center gap-2 w-full py-4 mt-6 bg-[#111111] text-white rounded-full text-xs font-mono font-medium tracking-widest uppercase opacity-0 translate-y-5"
           >
             <span>Contato</span>
             <ArrowUpRight size={16} />
           </a>
-        </div>
+        </nav>
       </div>
     </>
   );
