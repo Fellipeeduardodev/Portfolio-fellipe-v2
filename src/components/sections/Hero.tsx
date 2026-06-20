@@ -138,7 +138,7 @@ export const Hero: React.FC = () => {
           <div className="hero-reveal mt-8">
             <Button
               label="Solicitar Orçamento"
-              href="mailto:fellipeeduardo1611@gmail.com"
+              href="#contato"
             />
           </div>
         </div>
