@@ -220,7 +220,7 @@ export const Footer: React.FC = () => {
 
       {/* Giant low-opacity background text */}
       <div 
-        className="absolute bottom-20 left-1/2 -translate-x-1/2 w-full text-center pointer-events-none select-none overflow-hidden z-0"
+        className="absolute bottom-28 md:bottom-20 left-1/2 -translate-x-1/2 w-full text-center pointer-events-none select-none overflow-hidden z-0"
         aria-hidden="true"
       >
         <span className="footer-bg-text block font-display font-black text-[clamp(4rem,15vw,22rem)] leading-none text-white opacity-[0.06] tracking-tighter uppercase whitespace-nowrap">
