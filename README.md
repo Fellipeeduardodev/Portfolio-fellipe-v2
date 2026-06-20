@@ -1,76 +1,85 @@
 # Fellipe Eduardo — Portfolio V2
 
-Portfolio pessoal e profissional desenvolvido para apresentar trabalhos de desenvolvimento frontend de alto nível. O projeto foi projetado seguindo princípios de **design editorial minimalista**, alta performance, acessibilidade e interações fluidas estilo **Awwwards**.
+![Licença](https://img.shields.io/github/license/Fellipeeduardodev/Portfolio-fellipe-v2?color=0a0a0a&style=flat-square)
+![React Version](https://img.shields.io/badge/react-19.0.0-blue?style=flat-square&color=0a0a0a)
+![Vite Version](https://img.shields.io/badge/vite-6.2.3-blue?style=flat-square&color=0a0a0a)
+![Tailwind Version](https://img.shields.io/badge/tailwindcss-4.0-blue?style=flat-square&color=0a0a0a)
+
+Website pessoal e profissional desenvolvido para expor projetos de desenvolvimento de software com foco em engenharia de interface frontend, animações de alta performance e usabilidade excepcional. Projetado com estética editorial minimalista, tipografia marcante e navegação fluida de alto padrão.
 
 ---
 
-## 🚀 Tecnologias Core
+## 🚀 Tecnologias Utilizadas
 
-*   **Framework:** [React 19](https://react.dev/) + [Vite](https://vite.dev/) (Build super rápida e leve)
-*   **Estilização:** [Tailwind CSS v4](https://tailwindcss.com/) (Arquitetura CSS moderna e de altíssima performance)
-*   **Animações:** [GSAP (GreenSock)](https://gsap.com/) + `@gsap/react` (ScrollTrigger, Timelines e quickTo interpolators)
-*   **Rolagem Fluida:** [Lenis Scroll](https://lenis.darkroom.engineering/) (Rolagem suave "buttery" sincronizada com o ScrollTrigger)
-*   **Tipografia:** Outfit (Títulos expressivos) e Inter (Leitura confortável)
-*   **Ícones:** [Lucide React](https://lucide.dev/) (Vetores geométricos limpos e nítidos)
-*   **Tipagem:** TypeScript (Segurança de tipos e autocompletes robustos)
+O projeto utiliza um conjunto de tecnologias modernas focadas em performance de carregamento, renderização eficiente e integridade estrutural:
+
+*   **React 19:** Estrutura de componentes robusta e gerenciamento de estado declarativo.
+*   **Vite 6:** Ambiente de build extremamente veloz e otimizado para o ecossistema frontend atual.
+*   **Tailwind CSS v4:** Estilização moderna e de alta performance através de utilitários nativos e compilação otimizada.
+*   **TypeScript:** Segurança de tipos completa no desenvolvimento de todos os componentes e interações.
+*   **GSAP (GreenSock) & ScrollTrigger:** Motor de animação profissional para controle milimétrico de timelines e efeitos baseados em scroll.
+*   **Lenis:** Biblioteca de rolagem suave (*smooth scrolling*) sincronizada com precisão ao ScrollTrigger para evitar travamentos de tela.
+*   **Lucide Icons:** Conjunto de ícones vetoriais limpos e geométricos.
 
 ---
 
-## ✨ Destaques de UX/UI & Motion Design
+## ✨ Destaques de Design & Motion
 
-1.  **Cursor Customizado Premium:**
-    *   Rastreamento fluido com inércia usando `gsap.quickTo`.
-    *   Efeito de inversão de cores inteligente (`mix-blend-difference`) contra fundos claros e escuros.
-    *   Correção de desfoque/blur e centralização absoluta no ponteiro (`xPercent: -50`, `yPercent: -50`), expandindo perfeitamente ao pairar sobre elementos interativos.
-2.  **Transições de Layout e Entrada:**
-    *   Animações de entrada direta (sem loaders obstrutivos) revelando o menu de navegação e as linhas tipográficas do Hero.
-    *   Entrada em cascata (*stagger*) dos blocos informativos do Hero e das etapas de desenvolvimento.
-3.  **Seção de Processo Interativa ("Da Ideia à Interface"):**
-    *   Abas dinâmicas acionadas por hover (desktop) ou clique (mobile).
-    *   Revelação das etapas com efeitos de clip-path e fades que se limpam sozinhos (`clearProps` do GSAP) para manter a integridade dos hovers nativos do CSS.
-4.  **Linhas de Grid Editorial:**
-    *   Linhas de grid verticais consistentes que cruzam todo o layout do site (Hero, Processo e Sobre), acompanhadas de coordenadas de margem conceituais (`[02 // PROCESS]`, `[03 // ABOUT]`).
-5.  **Rodapé Minimalista de Alta Conversão:**
-    *   Transição limpa de cores com fundo preto profundo (`#050505`) e efeito de paralaxe sutil via movimento de mouse sobre o letreiro de fundo.
+O portfólio implementa práticas recomendadas em interfaces premium (estilo *Awwwards*):
+
+1.  **Cursor Customizado Fluido:**
+    *   Interpolação de movimento baseada em inércia (`gsap.quickTo`) para suavidade máxima no rastreamento.
+    *   Mesclagem de cor dinâmica (`mix-blend-difference`) que ajusta o contraste do cursor automaticamente ao passar por fundos claros e escuros.
+2.  **Transições de Layout Elegantes:**
+    *   Entrada suave dos elementos do menu e revelação sequencial (*stagger*) da tipografia do Hero.
+3.  **Seção de Processo Interativa:**
+    *   Acordeão e abas interativas integradas para desktop e mobile, adaptando a experiência de navegação conforme o dispositivo.
+    *   Gerenciamento dinâmico de estados e limpeza de propriedades de transição (`clearProps`) para manter a fidelidade do layout em diferentes telas.
+4.  **Grid Editorial Fiel:**
+    *   Linhas de marcação verticais consistentes que estruturam o conteúdo visual de ponta a ponta.
 
 ---
 
 ## ♿ Acessibilidade (a11y) & SEO Técnico
 
-*   **Indexação e SEO:** Configuração correta de tags Open Graph, Twitter Cards, tag canonical e dados estruturados avançados em **JSON-LD** (`@type: Person`) para posicionamento no Google Search.
-*   **Acessibilidade de Teclado:** Links de salto rápido (`skip-to-content`), contorno visível de foco (`focus-visible`) para todos os elementos interativos, atribuição de landmarks semânticos (`<main>`, `<footer>`), e conformidade ARIA (`role="tablist"`, `aria-selected`, etc.).
-*   **Reduced Motion:** Suporte à diretiva de acessibilidade de movimento do sistema operacional (`prefers-reduced-motion`), desabilitando cursores customizados e transições bruscas para garantir conforto e conformidade.
-*   **Otimização de Assets:** Imagem de retrato em formato **WebP** comprimido com altíssima qualidade (redução de 94% no tamanho de carregamento).
+*   **SEO Avançado:** Dados estruturados estruturados em **JSON-LD** (`@type: Person`) para correta indexação no Google Search, tags Open Graph completas e estrutura canônica.
+*   **Navegação por Teclado:** Suporte completo com links de pulo de conteúdo (*skip links*), focos de teclado claramente visíveis (`focus-visible`) e propriedades ARIA funcionais nos seletores.
+*   **Redução de Movimento:** Respeito à diretiva do sistema operacional (`prefers-reduced-motion`). Quando ativa, as animações pesadas e o cursor customizado são desativados para preservar a usabilidade e o conforto do usuário.
+*   **Carregamento Otimizado:** Imagens comprimidas e carregamento sob demanda para garantir a melhor pontuação de performance no Lighthouse.
 
 ---
 
-## 🛠️ Como rodar o projeto localmente
+## 🛠️ Executando o Projeto Localmente
 
 ### Pré-requisitos
+*   [Node.js](https://nodejs.org/) (recomendado v18+)
+*   Gerenciador de pacotes `npm` ou `yarn`
 
-Certifique-se de ter o [Node.js](https://nodejs.org/) instalado em sua máquina.
+### Instalação
 
-### Passo a Passo
-
-1.  **Clonar o repositório:**
+1.  Clone este repositório:
     ```bash
     git clone https://github.com/Fellipeeduardodev/Portfolio-fellipe-v2.git
+    ```
+
+2.  Acesse o diretório do projeto:
+    ```bash
     cd Portfolio-fellipe-v2
     ```
 
-2.  **Instalar as dependências:**
+3.  Instale as dependências necessárias:
     ```bash
     npm install
     ```
 
-3.  **Executar o servidor de desenvolvimento:**
+4.  Execute o ambiente de desenvolvimento local:
     ```bash
     npm run dev
     ```
-    *O projeto iniciará por padrão em `http://localhost:3000`.*
+    *O projeto estará disponível por padrão em `http://localhost:3000`.*
 
-4.  **Compilar para produção (Build):**
+5.  Gere a versão otimizada de produção (Build):
     ```bash
     npm run build
     ```
-    *Gera os arquivos estáticos e otimizados prontos para deploy na pasta `dist/`.*
+    *Os arquivos estáticos prontos para deploy estarão localizados na pasta `dist/`.*
