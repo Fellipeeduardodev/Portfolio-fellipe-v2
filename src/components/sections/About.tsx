@@ -189,11 +189,12 @@ export const About: React.FC = () => {
 
             {/* Quick Profile Meta */}
             <div className="flex flex-wrap items-center justify-between gap-3 p-4 bg-[#fafafa] dark:bg-[#121212] border border-neutral-300 dark:border-neutral-800 font-mono text-xs">
-              <div className="flex items-center gap-2 text-neutral-950 dark:text-white">
-                <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-                <span className="font-bold uppercase tracking-wider">São Paulo, Brasil</span>
-              </div>
-              <span className="text-neutral-600 dark:text-neutral-400 font-bold">18 Anos · 2026</span>
+              <span className="font-bold uppercase tracking-wider text-neutral-950 dark:text-white">
+                {t.about.photoMetaLabel}
+              </span>
+              <span className="text-neutral-600 dark:text-neutral-400 font-bold">
+                {t.about.photoMetaAge}
+              </span>
             </div>
           </div>
 

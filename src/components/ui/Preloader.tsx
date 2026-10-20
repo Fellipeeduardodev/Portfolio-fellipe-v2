@@ -305,7 +305,7 @@ export const Preloader: React.FC<PreloaderProps> = ({
           <span className="preloader-micro">Fellipe Eduardo — Portfólio</span>
           <div className="flex items-center gap-4">
             <span className="preloader-micro hidden sm:inline-block">
-              São Paulo, BR
+              Portfólio 2026
             </span>
             {canSkip && (
               <button

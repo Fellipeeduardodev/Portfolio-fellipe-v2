@@ -84,6 +84,8 @@ export interface TranslationDictionary {
     title1: string;
     title2: string;
     subtitle: string;
+    photoMetaLabel: string;
+    photoMetaAge: string;
     bioLabel: string;
     bioHeading: string;
     bio1: string;
@@ -210,7 +212,7 @@ export const translations: Record<Language, TranslationDictionary> = {
       },
       p2: {
         tag: "[ 02 // FREELANCE & OPORTUNIDADES ]",
-        badge: "Disponível para projetos",
+        badge: "Freelance & Colaborações",
         title: "Bora construir uma interface moderna juntos?",
         description: "Estou disponível para projetos freelance, novos websites e oportunidades de desenvolvimento. Se você tem um design no Figma ou uma ideia no papel e precisa de código limpo, responsivo e bem animado, me manda uma mensagem.",
         bullet1: "Fidelidade ao Design",
@@ -224,6 +226,8 @@ export const translations: Record<Language, TranslationDictionary> = {
       title1: "POR TRÁS",
       title2: "DO CÓDIGO",
       subtitle: "Estudo diário, código limpo e foco absoluto em construir interfaces modernas.",
+      photoMetaLabel: "Fellipe Eduardo",
+      photoMetaAge: "18 Anos · 2026",
       bioLabel: "Trajetória & Identidade",
       bioHeading: "Interfaces fluidas, atenção aos detalhes e evolução técnica constante.",
       bio1: "Comecei na programação há 1 ano e, desde então, estudo diariamente para me aprimorar como desenvolvedor. Meu foco é construir interfaces modernas, fluidas e com alto nível de acabamento técnico.",
@@ -290,7 +294,7 @@ export const translations: Record<Language, TranslationDictionary> = {
       copyEmail: "Copiar",
       copied: "E-mail copiado!",
       role: "Desenvolvedor Web",
-      location: "São Paulo, Brasil · UTC-3",
+      location: "Horário Local · UTC-3",
       status: "Disponível para novos projetos",
       pitch: "Foco em código limpo, interfaces interativas e alta fidelidade visual.",
       stackTitle: "Tecnologias em Uso",
@@ -372,7 +376,7 @@ export const translations: Record<Language, TranslationDictionary> = {
       },
       p2: {
         tag: "[ 02 // FREELANCE & OPPORTUNITIES ]",
-        badge: "Available for work",
+        badge: "Freelance & Collabs",
         title: "Ready to build a modern interface together?",
         description: "I'm available for freelance projects, new websites, and engineering opportunities. If you have a Figma design or an idea on paper and need clean, responsive, and animated code, feel free to reach out.",
         bullet1: "Pixel-Perfect Fidelity",
@@ -386,6 +390,8 @@ export const translations: Record<Language, TranslationDictionary> = {
       title1: "BEHIND",
       title2: "THE CODE",
       subtitle: "Continuous learning, clean code, and relentless focus on building modern interfaces.",
+      photoMetaLabel: "Fellipe Eduardo",
+      photoMetaAge: "18 Years Old · 2026",
       bioLabel: "Journey & Craft",
       bioHeading: "Fluid interfaces, obsessive attention to detail, and non-stop craft.",
       bio1: "I started programming 1 year ago and study daily to hone my craft. My focus is building modern, fluid interfaces with an exceptional level of technical finish.",
@@ -452,7 +458,7 @@ export const translations: Record<Language, TranslationDictionary> = {
       copyEmail: "Copy",
       copied: "Email copied!",
       role: "Web Developer",
-      location: "São Paulo, Brazil · UTC-3",
+      location: "Local Time · UTC-3",
       status: "Available for new projects",
       pitch: "Focused on clean code, interactive interfaces, and high visual fidelity.",
       stackTitle: "Technologies in Use",

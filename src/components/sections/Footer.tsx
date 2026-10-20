@@ -229,24 +229,7 @@ export const Footer: React.FC = () => {
             </p>
           </div>
 
-          {/* Block 2: Quick Tech Stack */}
-          <div className="footer-info flex flex-col gap-3 pt-6 border-t border-neutral-800/70">
-            <span className="font-mono text-[11px] font-bold tracking-[0.2em] text-neutral-400 uppercase">
-              {t.footer.stackTitle}
-            </span>
-            <div className="flex flex-wrap gap-1.5 font-mono text-[11px]">
-              {["React", "TypeScript", "Tailwind CSS", "GSAP", "Git & GitHub", "Figma", "UI/UX"].map((tech) => (
-                <span
-                  key={tech}
-                  className="px-2.5 py-1 rounded-md bg-[#121212] border border-neutral-800 text-neutral-300 hover:border-neutral-600 hover:text-white transition-colors duration-200"
-                >
-                  {tech}
-                </span>
-              ))}
-            </div>
-          </div>
-
-          {/* Block 3: Social & Code Profiles */}
+          {/* Block 2: Social & Code Profiles */}
           <div className="footer-socials flex flex-col gap-3 pt-6 border-t border-neutral-800/70">
             <div className="flex items-center justify-between">
               <span className="font-mono text-[11px] font-bold tracking-[0.2em] text-neutral-400 uppercase">
