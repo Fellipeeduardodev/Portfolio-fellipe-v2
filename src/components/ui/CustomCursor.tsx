@@ -15,7 +15,7 @@ export const CustomCursor: React.FC = () => {
     // Hide native cursor
     document.documentElement.style.cursor = "none";
 
-    // Set initial centering and size (using width/height instead of scale to keep edges crisp and avoid blur)
+    // Set initial centering and size
     gsap.set(cursor, { 
       xPercent: -50, 
       yPercent: -50, 
@@ -51,6 +51,19 @@ export const CustomCursor: React.FC = () => {
       const target = e.target as HTMLElement;
       if (!target) return;
 
+      const isInput = target.tagName === "INPUT" || target.tagName === "TEXTAREA";
+      if (isInput) {
+        gsap.to(cursor, {
+          width: 4,
+          height: 20,
+          borderRadius: 2,
+          opacity: 0.5,
+          duration: 0.2,
+          ease: "power2.out",
+        });
+        return;
+      }
+
       const isInteractive = 
         target.tagName === "A" || 
         target.tagName === "BUTTON" || 
@@ -63,6 +76,8 @@ export const CustomCursor: React.FC = () => {
         gsap.to(cursor, { 
           width: 52,
           height: 52,
+          borderRadius: 9999,
+          opacity: 1,
           duration: 0.3, 
           ease: "power2.out" 
         });
@@ -73,6 +88,7 @@ export const CustomCursor: React.FC = () => {
       const target = e.target as HTMLElement;
       if (!target) return;
 
+      const isInput = target.tagName === "INPUT" || target.tagName === "TEXTAREA";
       const isInteractive = 
         target.tagName === "A" || 
         target.tagName === "BUTTON" || 
@@ -81,17 +97,30 @@ export const CustomCursor: React.FC = () => {
         target.closest('[role="tab"]') ||
         target.closest('[role="button"]');
 
-      if (isInteractive) {
+      if (isInteractive || isInput) {
         gsap.to(cursor, { 
           width: 10,
           height: 10,
+          borderRadius: 9999,
+          opacity: 1,
           duration: 0.3, 
           ease: "power2.out" 
         });
       }
     };
 
+    // Tactile press & release feedback
+    const handleMouseDown = () => {
+      gsap.to(cursor, { scale: 0.75, duration: 0.12, ease: "power2.out" });
+    };
+
+    const handleMouseUp = () => {
+      gsap.to(cursor, { scale: 1, duration: 0.25, ease: "back.out(2)" });
+    };
+
     window.addEventListener("mousemove", handleMouseMove);
+    window.addEventListener("mousedown", handleMouseDown);
+    window.addEventListener("mouseup", handleMouseUp);
     document.documentElement.addEventListener("mouseleave", handleMouseLeave);
     document.documentElement.addEventListener("mouseenter", handleMouseEnter);
     window.addEventListener("mouseover", handleMouseOver);
@@ -100,6 +129,8 @@ export const CustomCursor: React.FC = () => {
     return () => {
       document.documentElement.style.cursor = "auto";
       window.removeEventListener("mousemove", handleMouseMove);
+      window.removeEventListener("mousedown", handleMouseDown);
+      window.removeEventListener("mouseup", handleMouseUp);
       document.documentElement.removeEventListener("mouseleave", handleMouseLeave);
       document.documentElement.removeEventListener("mouseenter", handleMouseEnter);
       window.removeEventListener("mouseover", handleMouseOver);

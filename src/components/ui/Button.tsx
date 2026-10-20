@@ -20,7 +20,7 @@ export const Button: React.FC<ButtonProps> = ({
   className = '',
 }) => {
   const isLink = !!href;
-  const buttonRef = useRef<any>(null);
+  const buttonRef = useRef<HTMLAnchorElement | HTMLButtonElement | null>(null);
 
   useEffect(() => {
     const el = buttonRef.current;
@@ -54,15 +54,19 @@ export const Button: React.FC<ButtonProps> = ({
     };
   }, []);
 
+  const handleClick = () => {
+    if (onClick) onClick();
+  };
+
   const getStyles = () => {
     switch (variant) {
       case 'primary':
-        return 'bg-[#171717] hover:bg-[#262626] text-[#fafafa] border border-transparent font-medium';
+        return 'bg-[#171717] hover:bg-[#262626] text-[#fafafa] dark:bg-white dark:hover:bg-neutral-200 dark:text-[#0a0a0a] border border-transparent font-medium';
       case 'secondary':
-        return 'bg-[#f4f4f5] hover:bg-[#e4e4e7] text-[#18181b] font-medium';
+        return 'bg-[#f4f4f5] hover:bg-[#e4e4e7] text-[#18181b] dark:bg-neutral-800 dark:hover:bg-neutral-700 dark:text-white font-medium';
       case 'outline':
       default:
-        return 'border border-neutral-300 hover:border-neutral-800 text-neutral-800 hover:bg-neutral-50 font-medium';
+        return 'border border-neutral-300 dark:border-neutral-700 hover:border-neutral-800 dark:hover:border-white text-neutral-800 dark:text-neutral-200 hover:bg-neutral-50 dark:hover:bg-neutral-900 font-medium';
     }
   };
 
@@ -80,25 +84,29 @@ export const Button: React.FC<ButtonProps> = ({
   const containerClasses = `group relative overflow-hidden inline-flex w-fit px-6 py-3.5 rounded-full transition-[background-color,border-color,box-shadow,opacity] duration-300 select-none shadow-[0_1px_2px_rgba(0,0,0,0.02)] active:scale-[0.98] ${getStyles()} ${className}`;
 
   if (isLink) {
+    const isInternal = href.startsWith('#') || href.startsWith('/');
     return (
       <a
-        ref={buttonRef}
+        ref={buttonRef as React.RefObject<HTMLAnchorElement>}
         id={`btn-${label.toLowerCase().replace(/\s+/g, '-')}`}
         href={href}
+        onClick={handleClick}
         className={containerClasses}
-        target="_blank"
-        rel="noopener noreferrer"
+        target={isInternal ? undefined : "_blank"}
+        rel={isInternal ? undefined : "noopener noreferrer"}
       >
         {buttonContent}
+        {!isInternal && <span className="sr-only"> (abre em nova aba)</span>}
       </a>
     );
   }
 
   return (
     <button
-      ref={buttonRef}
+      ref={buttonRef as React.RefObject<HTMLButtonElement>}
       id={`btn-${label.toLowerCase().replace(/\s+/g, '-')}`}
-      onClick={onClick}
+      type="button"
+      onClick={handleClick}
       className={containerClasses}
     >
       {buttonContent}
